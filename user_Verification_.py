@@ -1,11 +1,13 @@
 # Building a User verifiecaiton API
 from flask import Flask, jsonify, request
-from UV_FUCTions.DB_modules import registeration, login, delete_user
+from UV_modules.DB_FUNtions import create_UV_Table, registeration, login, delete_user
+
 app = Flask(__name__)
+create_UV_Table()
 
 @app.route("/", methods=["GET"])
 def home():
-    return jsonify({"Message":"Hey, welcome to User Verification API!"}), 204
+    return jsonify({"Message":"Hey, welcome to User Verification API!"}), 200
 
 # signing Up
 @app.route("/add-user", methods=["POST"])
