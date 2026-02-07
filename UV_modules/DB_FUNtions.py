@@ -42,13 +42,13 @@ def create_UV_Table():
     conn.commit()
     conn.close()
 
-def registeration(usename, email, password):
+def registeration(username, email, password):
     salt = generate_Salt()
     password_hash = hash_password(password, salt, DEFAULT_ITERATION)
     conn = get_Connection()
     cursor = conn.cursor()
     try:
-        cursor.execute("INSERT INTO UV_DB (username, email, password_hash, salt, iterations) VALUES (?, ?, ?, ?, ?)", (username, email, password_hash, salt, DEFAULT_ITERAION))
+        cursor.execute("INSERT INTO UV_DB (username, email, password_hash, salt, iterations) VALUES (?, ?, ?, ?, ?)", (username, email, password_hash, salt, DEFAULT_ITERATION))
         conn.commit()
 
     except sqlite3.IntegrityError:
@@ -57,7 +57,7 @@ def registeration(usename, email, password):
     conn.close()
     return True
 
-def login(username, password):
+def user_Login(username, password):
     conn = get_Connection()
     cursor = conn.cursor()
     try:
@@ -65,25 +65,26 @@ def login(username, password):
         row = cursor.fetchone()
         stored_hash, salt, iterations = row
         input_hash = hash_password(password, salt, iterations)
-        if hmac.compare_digest(stored_hash, input_hash):
-            conn.close()
+        if hmac.compare_digest(input_hash, stored_hash):
+            #conn.close()
             return True
 
     except Exception as e:
-        conn.close()
+        #raise e
+        #conn.close()
         return False
 
 
-def delete_user(username, password):
+def delete_user(user_email, password):
     conn = get_Connection()
     cursor = conn.cursor()
     try:
-        cursor.execute("SELECT password_hash, salt, iterations FROM UV_DB WHERE username = ?", (username,))
+        cursor.execute("SELECT password_hash, salt, iterations FROM UV_DB WHERE email = ?", (user_email,))
         row = cursor.fetchone()
         stored_hash, salt, iterations = row
         input_hash = hash_password(password, salt, iterations)
         if hmac.compare_digest(stored_hash, input_hash):
-            cursor.execute("DELETE FROM UV_DB WHERE username = ?", (username,))
+            cursor.execute("DELETE FROM UV_DB WHERE emaii = ?", (user_email,))
             conn.commit()
             conn.close()
             return True

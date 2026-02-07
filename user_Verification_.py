@@ -1,6 +1,6 @@
 # Building a User verifiecaiton API
 from flask import Flask, jsonify, request
-from UV_modules.DB_FUNtions import create_UV_Table, registeration, login, delete_user
+from UV_modules.DB_FUNtions import create_UV_Table, registeration, user_Login, delete_user
 
 app = Flask(__name__)
 create_UV_Table()
@@ -16,7 +16,7 @@ def add_User():
     try:
         user_name = user_data["user_name"]
         user_email = user_data["user_email"]
-        user_password = uer_data["user_password"]
+        user_password = user_data["user_password"]
         registered = registeration(user_name, user_email, user_password)
         if registered:
             return jsonify({"Success":"User registered succesfully!"}), 202
@@ -24,7 +24,7 @@ def add_User():
             return jsonify({"Failed":"User already exists!"}), 404
 
     except Exception as e:
-        return jsonify({"error":f"please provide data..{e}"}), 400
+        return jsonify({"error":f"{e}"}), 400
 
 # Login / verifying 
 @app.route("/login", methods=["POST"])
@@ -33,13 +33,14 @@ def login():
     try: 
         user_name = user_data["user_name"]
         user_password = user_data["user_password"]
-        verified = login(user_name, user_password)
+        verified = user_Login(user_name, user_password)
         if verified:
             return jsonify({"Success":"User login sucessfully!"}), 201
         else:
             return jsonify({"Failed":"User is'nt registered!!"}), 403
 
     except Exception as e:
+        #raise e
         return jsonify({"Oops!":"Entered data is incorrect!"}), 401
 
 @app.route("/delete-user", methods=["POST"])
