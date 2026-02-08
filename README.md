@@ -50,8 +50,6 @@ data = {"user_name": "test_user", "user_email":"test_user@gmail", "user_password
 response = requests.post(url, json=data)
 print(response.json())
 
-> Screenshots of requests are available in the screenshots/ folder.
-
 
 💾 How to Run Locally
 
@@ -63,7 +61,9 @@ cd Flask-user_Verification
 2. Create virtual environment:
 
 python3 -m venv venv
+
 source venv/bin/activate # Linux / macOS
+
 venv\Scripts\activate # Windows
 
 3. Install requirements:
