@@ -19,7 +19,7 @@ def add_User():
         user_password = user_data["user_password"]
         registered = registeration(user_name, user_email, user_password)
         if registered:
-            return jsonify({"Success":"User registered succesfully!"}), 202
+            return jsonify({"Success":"User registered succesfully!"}), 201
         else:
             return jsonify({"Failed":"User already exists!"}), 404
 
@@ -56,8 +56,9 @@ def delete_User():
         else:
             return jsonify({"error":"Oops! user already is'nt registered!"}), 406
     except Exception as e:
+        #raise e
         return jsonify({"Oops!":"Entered data is incorrect!"}), 407
 
 
-#if __name__ == "__main__":
-#    app.run(host="0.0.0.0", port=8000, debug=True)
+if __name__ == "__main__":
+    app.run(debug=True)

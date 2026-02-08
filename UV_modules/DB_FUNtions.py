@@ -70,38 +70,36 @@ def registeration(username, email, password):
 def user_Login(username, password):
     conn = get_Connection()
     cursor = conn.cursor()
-    try:
-        cursor.execute("SELECT password_hash, salt, iterations FROM UV_DB WHERE username = ?", (username,))
-        row = cursor.fetchone()
-        stored_hash, salt, iterations = row
-        input_hash = hash_password(password, salt, iterations)
-        if hmac.compare_digest(input_hash, stored_hash):
-            #conn.close()
-            return True
-
-    except Exception as e:
-        #raise e
-        #conn.close()
+    cursor.execute("SELECT password_hash, salt, iterations FROM UV_DB WHERE username = ?", (username,))
+    row = cursor.fetchone()
+    if not row:
         return False
+
+    stored_hash, salt, iterations = row
+    input_hash = hash_password(password, salt, iterations)
+
+    if hmac.compare_digest(stored_hash, input_hash):
+        return True
+    return False
 
 # I think, you already guessed, this funtion is deleting a user if he registeed already, otherwise it will return  message like "User already is'nt exosts"
 def delete_user(user_email, password):
     conn = get_Connection()
     cursor = conn.cursor()
-    try:
-        cursor.execute("SELECT password_hash, salt, iterations FROM UV_DB WHERE email = ?", (user_email,))
-        row = cursor.fetchone()
-        stored_hash, salt, iterations = row
-        input_hash = hash_password(password, salt, iterations)
-        if hmac.compare_digest(stored_hash, input_hash):
-            cursor.execute("DELETE FROM UV_DB WHERE emaii = ?", (user_email,))
-            conn.commit()
-            conn.close()
-            return True
-
-    except Exception as e:
-        conn.close()
+    cursor.execute("SELECT password_hash, salt, iterations FROM UV_DB WHERE email = ?", (user_email,))
+    row = cursor.fetchone()
+    if not row:
         return False
+
+    stored_hash, salt, iterations = row
+    input_hash = hash_password(password, salt, iterations)
+
+    if hmac.compare_digest(stored_hash, input_hash):
+        cursor.execute("DELETE FROM UV_DB WHERE email = ?", (user_email,))
+        conn.commit()
+        conn.close()
+        return True
+    return False
 
 
 
