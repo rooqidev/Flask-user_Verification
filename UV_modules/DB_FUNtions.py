@@ -26,7 +26,9 @@ def hash_password(password: str, salt: str, iterations: int = DEFAULT_ITERATION)
 
 # setuping up SQLITE3
 def get_Connection():
-    conn = sqlite3.connect(UV_DB)
+    BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    DB_PATH = os.path.join(BASE_DIR, UV_DB)
+    conn = sqlite3.connect(DB_PATH)
     conn.row_factory = sqlite3.Row
     return conn
 
@@ -100,7 +102,6 @@ def delete_user(user_email, password):
     except Exception as e:
         conn.close()
         return False
-
 
 
 
