@@ -5,12 +5,16 @@ import hashlib
 import binascii
 import hmac
 
+# initiallizing a databae and default iterstion for password hashing 
 UV_DB = "UV_DB.db"
 DEFAULT_ITERATION = 100_000
 
-def generate_Salt():
-    return binascii.hexlify(os.urandom(16)).decode()
 
+def generate_Salt():
+    #generating hash for password
+    return binascii.hexlify(os.urandom(16)).decode()
+    
+    # now merging that hash with user passord & default iterations
 def hash_password(password: str, salt: str, iterations: int = DEFAULT_ITERATION):
     return hashlib.pbkdf2_hmac(
             "sha256",
@@ -20,12 +24,14 @@ def hash_password(password: str, salt: str, iterations: int = DEFAULT_ITERATION)
             ).hex()
 
 
+# setuping up SQLITE3
 def get_Connection():
     conn = sqlite3.connect(UV_DB)
     conn.row_factory = sqlite3.Row
     return conn
 
 def create_UV_Table():
+    # creating tablw for UV_DB
     conn = get_Connection()
     cursor = conn.cursor()
     cursor.execute("""
@@ -42,6 +48,7 @@ def create_UV_Table():
     conn.commit()
     conn.close()
 
+# this function is addding user to the database, & required username, email, password for making hash, 
 def registeration(username, email, password):
     salt = generate_Salt()
     password_hash = hash_password(password, salt, DEFAULT_ITERATION)
@@ -57,6 +64,7 @@ def registeration(username, email, password):
     conn.close()
     return True
 
+# This funtion is checking through database, wether this user exits or not, by comparing hash of this user with his given password
 def user_Login(username, password):
     conn = get_Connection()
     cursor = conn.cursor()
@@ -74,7 +82,7 @@ def user_Login(username, password):
         #conn.close()
         return False
 
-
+# I think, you already guessed, this funtion is deleting a user if he registeed already, otherwise it will return  message like "User already is'nt exosts"
 def delete_user(user_email, password):
     conn = get_Connection()
     cursor = conn.cursor()

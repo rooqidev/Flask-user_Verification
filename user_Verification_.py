@@ -9,7 +9,7 @@ create_UV_Table()
 def home():
     return jsonify({"Message":"Hey, welcome to User Verification API!"}), 200
 
-# signing Up
+# signing Up ( This function or i say Flask enfpoint Adding a user to the dattabase)
 @app.route("/add-user", methods=["POST"])
 def add_User():
     user_data = request.json
@@ -26,7 +26,7 @@ def add_User():
     except Exception as e:
         return jsonify({"error":f"{e}"}), 400
 
-# Login / verifying 
+# Login / verifying ( Checking & verifying user, wether he's exist or  not)
 @app.route("/login", methods=["POST"])
 def login():
     user_data = request.json
@@ -43,6 +43,7 @@ def login():
         #raise e
         return jsonify({"Oops!":"Entered data is incorrect!"}), 401
 
+# Deleing funtion is deleting user if he aleady exist in database othewise it wll show failure, eg not exists
 @app.route("/delete-user", methods=["POST"])
 def delete_User():
     user_data = request.json
