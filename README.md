@@ -27,8 +27,7 @@ Flask-user_Verification/ ├── app.py # Main Flask app ├── UV_modules/
 | `/add-user` | POST | Register a new user with username/email/password|
 | `/login` | POST | Login with username/password |
 | `/verify` | POST | Verify user account with username/password|
-
-> Last endpoint '/delete-user' is currently under refinement..
+| `/delete-user` | Delete user account using with email/password|
 
 ## 🛠 Tech Stack
 
@@ -44,21 +43,30 @@ Example with Python `requests` module:
 ```python
 import requests as r                                                                                            
 try:
-    # adding user                                                                                                             add_user_data = {                                                                                                             "user_name":"hamza343",
-        "user_email":"hamza@gmail.com",                                                                                           "user_password":"7723434jjfdf"                                                                                         }
+    # adding user
+    add_user_data = {
+        "user_name":"hamza343",
+        "user_email":"hamza@gmail.com",
+        "user_password":"7723434jjfdf"
+}
     #res = r.post("https://rooqidev.pythonanywhere.com/add-user", json=add_user_data)
 
     # testing & verifying user
      login_user_data = {
-        "user_name":"hamza343",                                                                                                   "user_password":"23434jjfdf"
-      }                                                                                                                        #res = r.post("https://rooqidev.pythonanywhere.com/login", json=add_user_data)
+        "user_name":"hamza343",
+        "user_password":"23434jjfdf"
+      }
+    #res = r.post("https://rooqidev.pythonanywhere.com/login", json=add_user_data)
 
     # deleting user
-    delete_user_data = {                                                                                                          "user_email":"hamza@gmail.com",
-        "user_password":"7723434jjfdf"                                                                                          }
-     res = r.post("https://rooqidev.pythonanywhere.com/delete-user", json=delete_user_data)                                    print(res.json())
+    delete_user_data = {
+        "user_email":"hamza@gmail.com",
+         "user_password":"7723434jjfdf"
+    }
+     res = r.post("https://rooqidev.pythonanywhere.com/delete-user", json=delete_user_data)
+     print(res.json())
 except Exception as e:
-    print(e)
+     print(e)
 ```
 ### 💾 How to Run Locally
 
