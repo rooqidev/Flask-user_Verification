@@ -27,7 +27,7 @@ Flask-user_Verification/ ├── app.py # Main Flask app ├── UV_modules/
 | `/add-user` | POST | Register a new user with username/email/password|
 | `/login` | POST | Login with username/password |
 | `/verify` | POST | Verify user account with username/password|
-| `/delete-user` | Delete user account using with email/password|
+| `/delete-user` | POST | Delete user account using with email/password|
 
 ## 🛠 Tech Stack
 
@@ -56,7 +56,7 @@ try:
         "user_name":"hamza343",
         "user_password":"23434jjfdf"
       }
-    #res = r.post("https://rooqidev.pythonanywhere.com/login", json=add_user_data)
+    #res = r.post("https://rooqidev.pythonanywhere.com/login", json=login_user_data)
 
     # deleting user
     delete_user_data = {
