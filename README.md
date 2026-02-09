@@ -19,7 +19,6 @@ Check it out here: [Flask User Verification API](https://rooqidev.pythonanywhere
 
 Flask-user_Verification/ ├── app.py # Main Flask app ├── UV_modules/ # Helper modules │ └── UV_FUNCTIONS.py # Database functions └── UV_DB.db # SQLite database
 
----
 
 ## 🔗 Endpoints
 
