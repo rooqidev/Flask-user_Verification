@@ -43,13 +43,11 @@ You can test the API using curl, Postman, or Python requests.
 Example with Python `requests` module:
 
 ```python
-import requests
-
-url = "https://rooqidev.pythonanywhere.com/add-user"
-data = {"user_name": "test_user", "user_email":"test_user@gmail", "user_password": "mtsetassword"}
-response = requests.post(url, json=data)
-print(response.json())
-
+import requests as r                                                                                                   try:                                                                                                                 # adding user                                                                                                       add_user_data = {                                                                                                       "user_name":"hamza343",
+            "user_email":"hamza@gmail.com",                                                                                     "user_password":"7723434jjfdf"                                                                                         }                                                                                                                                                                                                                           #res = r.post("https://rooqidev.pythonanywhere.com/add-user", json=add_user_data)                                                                                                                                                     # testing & verifying user                                                                                             login_user_data = {                                                                                                 "user_name":"hamza343",                                                                                             "user_password":"23434jjfdf"
+            }                                                                                                                                                                                                                                #res = r.post("https://rooqidev.pythonanywhere.com/login", json=add_user_data)
+        # deleting user                                                                                                    delete_user_data = {                                                                                                   "user_email":"hamza@gmail.com",                                                                                     "user_password":"7723434jjfdf"                                                                                    }                                                                                                              res = r.post("https://rooqidev.pythonanywhere.com/delete-user", json=delete_user_data)                                                                                                                                               print(res.json())                                                                                                                                                                                                               except Exception as e:
+    print(e)
 
 💾 How to Run Locally
 
