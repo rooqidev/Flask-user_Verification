@@ -43,15 +43,24 @@ Example with Python `requests` module:
 
 ```python
 import requests as r                                                                                            
-try:                                                                                                            
-    # adding user                                                                                                      add_user_data = {                                                                                                       "user_name":"hamza343",
-            "user_email":"hamza@gmail.com",                                                                                     "user_password":"7723434jjfdf"                                                                                         }                                                                                                                                                                                                                        #res = r.post("https://rooqidev.pythonanywhere.com/add-user", json=add_user_data)                                                                                                                                                     # testing & verifying user                                                                                             login_user_data = {                                                                                                 "user_name":"hamza343",                                                                                             "user_password":"23434jjfdf"
-            }                                                                                                                                                                                                                             #res = r.post("https://rooqidev.pythonanywhere.com/login", json=add_user_data)
-    # deleting user                                                                                                    delete_user_data = {                                                                                                   "user_email":"hamza@gmail.com",                                                                                     "user_password":"7723434jjfdf"                                                                                    }                                                                                                              res = r.post("https://rooqidev.pythonanywhere.com/delete-user", json=delete_user_data)                                                                                                                                                print(res.json())                                                                                          
+try:
+    # adding user                                                                                                             add_user_data = {                                                                                                             "user_name":"hamza343",
+        "user_email":"hamza@gmail.com",                                                                                           "user_password":"7723434jjfdf"                                                                                         }
+    #res = r.post("https://rooqidev.pythonanywhere.com/add-user", json=add_user_data)
+
+    # testing & verifying user
+     login_user_data = {
+        "user_name":"hamza343",                                                                                                   "user_password":"23434jjfdf"
+      }                                                                                                                        #res = r.post("https://rooqidev.pythonanywhere.com/login", json=add_user_data)
+
+    # deleting user
+    delete_user_data = {                                                                                                          "user_email":"hamza@gmail.com",
+        "user_password":"7723434jjfdf"                                                                                          }
+     res = r.post("https://rooqidev.pythonanywhere.com/delete-user", json=delete_user_data)                                    print(res.json())
 except Exception as e:
     print(e)
-
-💾 How to Run Locally
+```
+### 💾 How to Run Locally
 
 1. Clone the repo:
 
